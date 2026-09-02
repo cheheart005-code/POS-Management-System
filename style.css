@@ -1,0 +1,237 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: black;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.main_section {
+    width: 100%;
+}
+
+.middle {
+    width: 57%;
+}
+
+.left {
+    width: 23%;
+    overflow-y: auto;
+}
+
+.left h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.right {
+    width: 25%;
+}
+
+.right h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.right table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.right th,
+.right td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.right th {
+    background-color: #f2f2f2;
+}
+
+.right button {
+    padding: 7px 12px;
+    cursor: pointer;
+    border: 1px solid #333;
+    border-radius: 4px;
+}
+
+.right button:hover {
+    background-color: #ddd;
+}
+
+.left,
+.middle,
+.right {
+    border: 1px solid #ccc;
+    height: 700px;
+    box-sizing: border-box;
+}
+
+.left h2,
+.middle h2,
+.right h2 {
+    margin-top: 0;
+}
+
+.sub_main {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+.product {
+    border: 1px solid black;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.product:hover {
+    border-color: #333;
+}
+
+.product h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.product p {
+    margin: 5px 0;
+}
+
+.product button {
+    margin-top: 5px;
+    margin-right: 3px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.product span {
+    font-weight: bold;
+}
+
+.middle h2 {
+    margin-bottom: 20px;
+}
+
+#input_area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#input_area label {
+    font-size: 14px;
+    margin-bottom: -5px;
+}
+
+#input_area input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#input_area input[type="file"] {
+    padding: 6px;
+}
+
+#input_area input:focus {
+    outline: 1px solid #333;
+}
+
+#input_area button {
+    width: 120px;
+    padding: 8px;
+    cursor: pointer;
+    border: 1px solid #333;
+    border-radius: 4px;
+}
+
+#input_area button:hover {
+    background-color: #ddd;
+}
+
+#salesHistory {
+    margin-top: 10px;
+}
+
+.sale {
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.sale p {
+    margin: 4px 0;
+}
+
+#total {
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+button {
+    cursor: pointer;
+    padding: 6px 10px;
+    border: 1px solid #999;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+.dashboard {
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+.dashboard p {
+    margin: 5px 0;
+}
+
+.report {
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.report p {
+    margin: 4px 0;
+}
+
+.receipt-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    display: block;
+    border-radius: 4px;
+}
