@@ -451,6 +451,10 @@ function updateDashboard() {
         beansStock +
         oilStock;
 
+    for (let i = 0; i < products.length; i++) {
+        totalStock = totalStock + products[i].stock;
+    }
+
 
     document.getElementById("productsInStock").innerText =
         totalStock;
@@ -568,6 +572,8 @@ function restockNewProduct(index) {
         products[index].stock + 10;
 
     showNewProducts();
+
+    updateDashboard();
 
     alert(products[index].name + " has been restocked");
 }
