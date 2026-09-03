@@ -163,7 +163,7 @@ function showCart() {
         </td>
 
         <td>
-            <button onclick="removeproduct(${i})">
+            <button class="btn btn-sm btn-outline-danger" onclick="removeproduct(${i})">
                 Remove
             </button>
         </td>
@@ -553,7 +553,7 @@ function showNewProducts() {
                 <span>${products[i].stock}</span>
             </p>
 
-            <button onclick="restockNewProduct(${i})">
+            <button class="btn btn-sm btn-outline-dark" onclick="restockNewProduct(${i})">
                 Restock
             </button>
         `;
