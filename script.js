@@ -81,6 +81,16 @@ function addproduct() {
         return;
     }
 
+    for (let i = 0; i < products.length; i++) {
+        if (products[i].name.toLowerCase() === productName.toLowerCase() &&
+            quantity > products[i].stock) {
+
+            alert("Not enough " + products[i].name + " in stock");
+
+            return;
+        }
+    }
+
 
     let total = cost * quantity;
 
@@ -107,6 +117,8 @@ function addproduct() {
 
     showCart();
 
+    document.getElementById("receiptCustomerName").innerText =
+        customerName;
 
     document.getElementById("total").innerText =
         "Total: ₦" + grandTotal;
@@ -117,6 +129,8 @@ function addproduct() {
     document.getElementById("ProductCost").value = "";
 
     document.getElementById("ProductQuantity").value = "";
+
+    document.getElementById("ProductImage").value = "";
 
 }
 
@@ -217,6 +231,13 @@ function checkout() {
 
         }
 
+        for (let j = 0; j < products.length; j++) {
+            if (products[j].name.toLowerCase() === productName) {
+                products[j].stock =
+                    products[j].stock - quantity;
+            }
+        }
+
     }
 
 
@@ -257,6 +278,8 @@ function checkout() {
 
     showReport();
 
+    showNewProducts();
+
 
     cart = [];
 
@@ -267,6 +290,11 @@ function checkout() {
 
     document.getElementById("total").innerText =
         "Total: ₦0";
+
+    document.getElementById("receiptCustomerName").innerText =
+        "No Customer";
+
+    document.getElementById("CustomerName").value = "";
 
 }
 
