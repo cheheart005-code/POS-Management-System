@@ -9,9 +9,6 @@ body {
     color: black;
 }
 
-/* Layout: the 3 panels are now Bootstrap grid columns (.col-*).
-   These classes just style the panel itself, not its width/position. */
-
 .left,
 .middle,
 .right {
@@ -27,9 +24,6 @@ body {
     overflow-y: auto;
 }
 
-/* Give the panels a fixed reading height only once there's room for all
-   three side by side (Bootstrap's lg breakpoint). Below that they stack
-   and should just grow with their content. */
 @media (min-width: 992px) {
 
     .left,
