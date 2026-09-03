@@ -533,7 +533,7 @@ function addNewProduct() {
 
 function showNewProducts() {
 
-    let productArea = document.querySelector("#newproductsArea");
+    let productArea = document.querySelector("#newProductsArea");
 
     productArea.innerHTML = "";
 
@@ -560,7 +560,6 @@ function showNewProducts() {
 
         productArea.appendChild(product);
     }
-
 }
 
 function restockNewProduct(index) {
