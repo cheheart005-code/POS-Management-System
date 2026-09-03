@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> POS management System</title>
+    <style>
+        .middle {
+            width: 55%;
+
+        }
+
+        .left {
+            width: 15%;
+        }
+
+        .right {
+            width: 25%;
+        }
+
+        .left,
+        .middle,
+        .right {
+            border: 1px solid red;
+            height: 700px;
+
+        }
+
+        .sub_main {
+            display: flex;
+            gap: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1> Pos Management System </h1>
+        <nav>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+        </nav>
+    </header>
+
+    <div class="main_section">
+        <div class="sub_main">
+            <div class="left">
+
+            </div>
+
+
+            <div class="middle">
+                <h2>Add Product.</h2>
+                <div id="input_area">
+                    <input type="text" id="customerName" placeholder="Enter your name">
+                    <input type="text" id="productName" placeholder="Enter The Product Name">
+                    <input type="number" id="productCost" placeholder="Product Cost">
+                    <input type="file" id="imagefield">
+                    <button onclick="addproduct()"> Add Product</button>
+                </div>
+
+            </div>
+
+
+            <div class="right">
+                <h2>Receipt</h2>
+                <p>
+                    <span>Name:</span>
+                    <span id="c_name">Mr. Henry</span>
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th> Image</th>
+                            <th>Product</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+
+
+
+                    <tbody id="product_display">
+                        <!-- <tr>
+                                <td>Image</td>
+                                <td> FRice </td>
+                                <td>3500</td>
+                            </tr>
+                            <tr>
+                                <td>Image</td>
+                                <td> FRice </td>
+                                <td>3500</td>
+                            </tr>
+                            <tr>
+                                <td>Image</td>
+                                <td> FRice </td>
+                                <td>3500</td>
+                            </tr>
+                            <tr>
+                                <td>Image</td>
+                                <td> FRice </td>
+                                <td>3500</td>
+                            </tr>  -->
+                    </tbody>
+
+
+
+                    <tfoot>
+                        <td>Total</td>
+                        <td></td>
+                        <td>N</td>
+                    </tfoot>
+                </table>
+
+                <button onclick="window.print()">Print</button>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+    </footer>
+
+
+
+
+
+    <script>
+        function addproduct() {
+            let name = document.getElementById('customerName').value;
+            let product = document.getElementById('productName').value;
+            let amount = document.getElementById('productCost').value;
+            let image = document.getElementById('imagefield').files[0];
+
+
+            document.getElementById('c_name').innerHTML = name;
+
+            if (name === "" || product === "" || amount === "" || !image) {
+                alert('all fields must be filled')
+                return;
+            }
+
+
+        }
+
+
+    </script>
+</body>
+
+</html>

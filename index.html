@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+
+        <h1>POS Management System</h1>
+
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">Sales</a>
+        </nav>
+
+    </header>
+
+
+    <div class="main_section">
+
+        <div class="sub_main">
+
+            <div class="left">
+
+
+                <h2>Dashboard</h2>
+
+                <div class="dashboard">
+
+                    <p>
+                        Total Sales:
+                        <span id="totalSales">₦0</span>
+                    </p>
+
+                    <p>
+                        Money Made:
+                        <span id="moneyMade">₦0</span>
+                    </p>
+
+                    <p>
+                        Products in Stock:
+                        <span id="productsInStock">0</span>
+                    </p>
+
+                </div>
+
+
+                <h2>Sales Report</h2>
+
+                <div id="salesReport">
+
+                </div>
+
+
+                <h2>Products</h2>
+
+                <div id="productArea">
+
+                    <div class="product">
+
+                        <h3>Rice</h3>
+
+                        <p>Cost: ₦5000</p>
+
+                        <p>
+                            Stock:
+                            <span id="riceStock">10</span>
+                        </p>
+
+                        <button onclick="restockRice()">Restock</button>
+
+                    </div>
+
+
+                    <div class="product">
+
+                        <h3>Beans</h3>
+
+                        <p>Cost: ₦2000</p>
+
+                        <p>
+                            Stock:
+                            <span id="beansStock">20</span>
+                        </p>
+
+                        <button onclick="restockBeans()">Restock</button>
+
+                    </div>
+
+
+                    <div class="product">
+
+                        <h3>Oil</h3>
+
+                        <p>Cost: ₦4000</p>
+
+                        <p>
+                            Stock:
+                            <span id="oilStock">15</span>
+                        </p>
+
+                        <button onclick="restockOil()">Restock</button>
+
+                    </div>
+
+                </div>
+
+                <div id="newProductsArea"></div>
+
+                <button onclick="addNewProduct()">
+                    Add New Product
+                </button>
+
+                <br><br>
+
+                <h2>Sales History</h2>
+
+                <div id="salesHistory">
+
+
+                </div>
+
+            </div>
+
+
+            <div class="middle">
+
+                <h2>Add Product</h2>
+
+
+                <div id="input_area">
+
+                    <label for="CustomerName">Customer Name:</label>
+                    <input type="text" id="CustomerName" placeholder="Enter Customer's Name">
+
+                    <label for="ProductName">Product Name:</label>
+                    <input type="text" id="ProductName" placeholder="Enter the Product Name">
+
+                    <label for="ProductCost">Product Cost:</label>
+                    <input type="number" id="ProductCost" placeholder="product_cost">
+
+                    <label for="ProductQuantity">Product Quantity</label>
+                    <input type="number" id="ProductQuantity" placeholder="productquantity">
+
+                    <label for="ProductImage">Product Image:</label>
+                    <input type="file" id="ProductImage" accept=".jpg,.png,.jpeg" multiple>
+
+                    <button onclick="addproduct()">
+                        Add Product
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="right">
+
+                <h2>Receipt</h2>
+
+                <span>Name</span>
+                <Span>Mr.Ordeal</Span>
+
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="receipt">
+
+                    </tbody>
+
+                </table>
+
+                <p id="total">Total: ₦0</p>
+
+                <button onclick="checkout()">Checkout</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
