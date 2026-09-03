@@ -533,7 +533,7 @@ function addNewProduct() {
 
 function showNewProducts() {
 
-    let productArea = document.querySelector("#productArea");
+    let productArea = document.querySelector("#newproductArea");
 
     productArea.innerHTML = "";
 
