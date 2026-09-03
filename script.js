@@ -305,32 +305,6 @@ function showsales() {
 }
 
 
-function addRice() {
-
-    if (riceStock > 0) {
-
-        riceStock = riceStock - 1;
-
-        document.getElementById("riceStock").innerText =
-            riceStock;
-
-        if (riceStock <= 3) {
-
-            alert("Rice stock is low");
-
-        }
-
-    } else {
-
-        alert("Rice is out of stock");
-
-    }
-
-    updateDashboard();
-
-}
-
-
 function restockRice() {
 
     riceStock = riceStock + 10;
@@ -345,32 +319,6 @@ function restockRice() {
 }
 
 
-function addBeans() {
-
-    if (beansStock > 0) {
-
-        beansStock = beansStock - 1;
-
-        document.getElementById("beansStock").innerText =
-            beansStock;
-
-        if (beansStock <= 3) {
-
-            alert("Beans stock is low");
-
-        }
-
-    } else {
-
-        alert("Beans is out of stock");
-
-    }
-
-    updateDashboard();
-
-}
-
-
 function restockBeans() {
 
     beansStock = beansStock + 10;
@@ -379,32 +327,6 @@ function restockBeans() {
         beansStock;
 
     alert("Beans have been restocked");
-
-    updateDashboard();
-
-}
-
-
-function addOil() {
-
-    if (oilStock > 0) {
-
-        oilStock = oilStock - 1;
-
-        document.getElementById("oilStock").innerText =
-            oilStock;
-
-        if (oilStock <= 3) {
-
-            alert("Oil stock is low");
-
-        }
-
-    } else {
-
-        alert("Oil is out of stock");
-
-    }
 
     updateDashboard();
 
