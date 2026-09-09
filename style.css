@@ -4,136 +4,471 @@
 
 body {
     margin: 0;
+    padding: 0;
+
     font-family: Arial, sans-serif;
+
+    background-color: #eeeeee;
+    color: #222;
+
+    font-size: 14px;
+}
+
+.pos-header {
+    background-color: #343a40;
+    color: white;
+
+    padding: 10px 15px;
+
+    border-bottom: 3px solid #222;
+}
+
+.pos-header h1 {
+    margin: 0;
+
+    font-size: 22px;
+    font-weight: normal;
+
+    letter-spacing: 1px;
+}
+
+.user-status {
+    font-size: 13px;
+}
+
+
+.pos-top-info {
     background-color: white;
-    color: black;
+
+    border: 1px solid #bdbdbd;
+
+    padding: 10px;
 }
 
-.left,
-.middle,
-.right {
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+.pos-top-info label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-weight: bold;
+    font-size: 13px;
 }
 
-.left {
-    overflow-y: auto;
+.status-box {
+    background-color: #f5f5f5;
 }
 
-.right {
-    overflow-y: auto;
+
+.pos-panel {
+    background-color: white;
+
+    border: 1px solid #aaa;
+
+    min-height: 100%;
+
+    box-shadow: none;
 }
 
-@media (min-width: 992px) {
 
-    .left,
-    .middle,
-    .right {
-        height: 700px;
-    }
+.panel-title {
+    background-color: #e1e1e1;
+
+    border-bottom: 1px solid #aaa;
+
+    padding: 7px 10px;
+
+    font-weight: bold;
+
+    font-size: 15px;
+
+    color: #222;
 }
 
-.left h2,
-.middle h2,
-.right h2 {
-    margin-top: 0;
-    margin-bottom: 15px;
+
+.pos-panel label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-weight: bold;
+
+    font-size: 13px;
 }
 
-.middle h2 {
-    margin-bottom: 20px;
+
+.pos-panel .form-control,
+.pos-panel .form-select {
+    border: 1px solid #999;
+
+    border-radius: 2px;
+
+    font-size: 14px;
+
+    min-height: 36px;
 }
+
+.pos-panel .form-control:focus,
+.pos-panel .form-select:focus {
+    border-color: #666;
+
+    box-shadow: none;
+}
+
+
+.quantity-panel {
+    min-height: 100%;
+}
+
+.current-quantity {
+    padding: 15px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.current-quantity span {
+    font-size: 22px;
+}
+
+.quantity-options {
+    padding: 12px;
+}
+
+.quantity-options button {
+    margin-right: 5px;
+}
+
+
+.value-box {
+    background-color: #f5f5f5;
+
+    font-weight: bold;
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+.table {
+    margin: 0;
+
+    font-size: 13px;
+
+    background-color: white;
+}
+
+.table thead th {
+    background-color: #e5e5e5;
+
+    border-color: #999;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+
+    vertical-align: middle;
+}
+
+.table tbody td {
+    border-color: #bbb;
+
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+
+.receipt-image {
+    width: 45px;
+    height: 45px;
+
+    object-fit: cover;
+
+    display: block;
+
+    border: 1px solid #aaa;
+
+    border-radius: 2px;
+}
+
+
+.totals-panel {
+    min-height: 100%;
+}
+
+.total-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 7px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+.total-row span:last-child {
+    font-weight: bold;
+}
+
+.net-total {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding-top: 10px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+}
+
+.net-total span:last-child {
+    font-size: 20px;
+}
+
+
+#receiptCustomerName {
+    margin-left: 8px;
+
+    font-weight: bold;
+}
+
+
+.action-area {
+    background-color: white;
+
+    border: 1px solid #aaa;
+
+    padding: 12px;
+
+    text-align: center;
+}
+
+.action-area button {
+    min-width: 130px;
+
+    margin: 0 5px;
+
+    font-weight: bold;
+}
+
 
 .product {
-    border: 1px solid black;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-}
+    border: 1px solid #aaa;
 
-.product:hover {
-    border-color: #333;
+    background-color: #fafafa;
+
+    padding: 10px;
+
+    margin-bottom: 10px;
+
+    border-radius: 2px;
 }
 
 .product h3 {
     margin-top: 0;
+
     margin-bottom: 8px;
+
+    font-size: 17px;
 }
 
 .product p {
-    margin: 5px 0;
-}
+    margin: 4px 0;
 
-.product button {
-    margin-top: 5px;
-    margin-right: 3px;
+    font-size: 13px;
 }
 
 .product span {
     font-weight: bold;
 }
 
-#input_area {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.product button {
+    margin-top: 5px;
 }
 
-#input_area label {
-    font-size: 14px;
-    margin-bottom: -5px;
+
+.dashboard {
+    border: 1px solid #bbb;
+
+    background-color: #f7f7f7;
+
+    padding: 10px;
 }
 
-#input_area button {
-    width: 120px;
+.dashboard p {
+    margin: 7px 0;
+
+    padding-bottom: 6px;
+
+    border-bottom: 1px solid #ddd;
 }
+
+.dashboard p:last-child {
+    border-bottom: none;
+}
+
 
 #salesHistory {
-    margin-top: 10px;
+    max-height: 400px;
+
+    overflow-y: auto;
 }
 
 .sale {
-    border: 1px solid #ccc;
-    padding: 8px;
-    margin-bottom: 10px;
-    border-radius: 4px;
+    border: 1px solid #bbb;
+
+    background-color: #fafafa;
+
+    padding: 9px;
+
+    margin-bottom: 8px;
+
+    border-radius: 2px;
 }
 
 .sale p {
     margin: 4px 0;
+
+    font-size: 13px;
 }
 
-#total {
-    font-weight: bold;
-    margin-top: 15px;
-}
 
-.dashboard {
-    border: 1px solid #ccc;
-    padding: 8px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-}
+#salesReport {
+    max-height: 350px;
 
-.dashboard p {
-    margin: 5px 0;
+    overflow-y: auto;
 }
 
 .report {
-    border: 1px solid #ccc;
-    padding: 8px;
-    margin-bottom: 10px;
-    border-radius: 4px;
+    border: 1px solid #bbb;
+
+    background-color: #fafafa;
+
+    padding: 9px;
+
+    margin-bottom: 8px;
+
+    border-radius: 2px;
 }
 
 .report p {
     margin: 4px 0;
+
+    font-size: 13px;
 }
 
-.receipt-image {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    display: block;
-    border-radius: 4px;
+
+#newProductsArea {
+    margin-top: 10px;
+}
+
+
+footer {
+    background-color: #343a40;
+
+    color: white;
+}
+
+
+.btn {
+    border-radius: 2px;
+
+    font-size: 13px;
+}
+
+.btn-primary {
+    font-weight: bold;
+}
+
+.btn-success {
+    font-weight: bold;
+}
+
+
+@media (min-width: 992px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    .pos-header h1 {
+        font-size: 24px;
+    }
+
+    main {
+        max-width: 1600px;
+        margin: auto;
+    }
+
+}
+
+
+@media (max-width: 991px) {
+
+    .pos-header h1 {
+        font-size: 20px;
+    }
+
+    .user-status {
+        display: block;
+
+        margin-top: 5px;
+    }
+
+    .pos-panel {
+        margin-bottom: 0;
+    }
+
+}
+
+
+@media (max-width: 575px) {
+
+    body {
+        font-size: 13px;
+    }
+
+    .pos-header {
+        padding: 8px 10px;
+    }
+
+    .pos-header h1 {
+        font-size: 18px;
+    }
+
+    .panel-title {
+        font-size: 14px;
+
+        padding: 6px 8px;
+    }
+
+    .current-quantity {
+        font-size: 16px;
+    }
+
+    .current-quantity span {
+        font-size: 20px;
+    }
+
+    .table {
+        font-size: 12px;
+    }
+
+    .action-area button {
+        width: 100%;
+
+        margin: 4px 0;
+    }
+
 }
