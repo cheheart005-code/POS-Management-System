@@ -47,6 +47,16 @@ function setTodayDate() {
 
 }
 
+document.addEventListener("change", function (event) {
+
+    if (event.target.id === "saleDate") {
+
+        updateReceiptInformation();
+
+    }
+
+});
+
 function addproduct() {
 
     let customerName =
@@ -444,22 +454,24 @@ function updatePaymentDetails() {
         amountReceived - grandTotal;
 
 
-    if (change < 0) {
-
-        change = 0;
-
-    }
-
-
     let changeElement =
         document.getElementById("change");
 
 
     if (changeElement) {
 
-        changeElement.innerText =
-            "₦" +
-            change.toLocaleString();
+        if (change >= 0) {
+
+            changeElement.innerText =
+                "₦" +
+                change.toLocaleString();
+
+        } else {
+
+            changeElement.innerText =
+                "₦0";
+
+        }
 
     }
 
@@ -478,6 +490,26 @@ function updatePaymentDetails() {
 }
 
 function newSale() {
+
+    if (cart.length > 0) {
+
+        let confirmNewSale =
+            confirm(
+                "Clear the current sale and start a new one?"
+            );
+
+
+        if (!confirmNewSale) {
+
+            return;
+
+        }
+
+    }
+
+    cart = [];
+
+    grandTotal = 0;
 
     cart = [];
 
@@ -802,6 +834,8 @@ function increaseReceiptNumber() {
     receiptInput.value =
         "POS-" +
         String(number).padStart(3, "0");
+
+    updateReceiptInformation();
 
 }
 
@@ -1226,5 +1260,77 @@ function printReceipt() {
 
 
     window.print();
+
+}
+
+document.addEventListener("keydown", function (event) {
+
+    if (event.key === "Enter") {
+
+        let activeElement =
+            document.activeElement;
+
+
+        if (
+            activeElement &&
+            (
+                activeElement.id === "ProductName" ||
+                activeElement.id === "ProductCost" ||
+                activeElement.id === "ProductQuantity"
+            )
+        ) {
+
+            event.preventDefault();
+
+            addproduct();
+
+        }
+
+    }
+
+});
+
+function updateReceiptInformation() {
+
+    let receiptInput =
+        document.getElementById("receiptNumber");
+
+
+    let receiptDisplay =
+        document.getElementById("receiptNumberDisplay");
+
+
+    if (
+        receiptInput &&
+        receiptDisplay
+    ) {
+
+        receiptDisplay.innerText =
+            receiptInput.value;
+
+    }
+
+
+    let dateInput =
+        document.getElementById("saleDate");
+
+
+    let dateDisplay =
+        document.getElementById("receiptDateDisplay");
+
+
+    if (
+        dateInput &&
+        dateDisplay
+    ) {
+
+        if (dateInput.value !== "") {
+
+            dateDisplay.innerText =
+                dateInput.value;
+
+        }
+
+    }
 
 }
