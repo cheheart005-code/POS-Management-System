@@ -10,24 +10,63 @@ let cart = [];
 
 let products = [];
 
+document.addEventListener("DOMContentLoaded", function () {
+
+    setTodayDate();
+
+    updateProductValue();
+
+    updateCurrentQuantity();
+
+    updatePaymentDetails();
+
+    updateDashboard();
+
+});
+
+function setTodayDate() {
+
+    let dateInput =
+        document.getElementById("saleDate");
+
+    if (dateInput) {
+
+        let today = new Date();
+
+        let year = today.getFullYear();
+
+        let month =
+            String(today.getMonth() + 1).padStart(2, "0");
+
+        let day =
+            String(today.getDate()).padStart(2, "0");
+
+        dateInput.value =
+            year + "-" + month + "-" + day;
+    }
+
+}
 
 function addproduct() {
 
     let customerName =
-        document.getElementById("CustomerName").value;
+        document.getElementById("CustomerName").value.trim();
+
 
     let productName =
-        document.getElementById("ProductName").value;
+        document.getElementById("ProductName").value.trim();
+
 
     let productCost =
         document.getElementById("ProductCost").value;
 
+
     let productQuantity =
         document.getElementById("ProductQuantity").value;
 
+
     let productImage =
         document.getElementById("ProductImage").files;
-
 
     if (
         customerName === "" ||
@@ -37,63 +76,81 @@ function addproduct() {
         productImage.length === 0
     ) {
 
-        alert("All fields must be filled");
+        alert("Please fill all the required fields.");
 
         return;
     }
 
+    let quantity =
+        Number(productQuantity);
 
-    let quantity = Number(productQuantity);
-    let cost = Number(productCost);
+    let cost =
+        Number(productCost);
 
 
     if (quantity <= 0 || cost <= 0) {
 
-        alert("Quantity and cost must be greater than 0");
+        alert("Quantity and cost must be greater than 0.");
+
+        return;
+    }
+
+    if (
+        productName.toLowerCase() === "rice" &&
+        quantity > riceStock
+    ) {
+
+        alert("Not enough Rice in stock.");
 
         return;
     }
 
 
-    if (productName.toLowerCase() === "rice" &&
-        quantity > riceStock) {
+    if (
+        productName.toLowerCase() === "beans" &&
+        quantity > beansStock
+    ) {
 
-        alert("Not enough Rice in stock");
-
-        return;
-    }
-
-
-    if (productName.toLowerCase() === "beans" &&
-        quantity > beansStock) {
-
-        alert("Not enough Beans in stock");
+        alert("Not enough Beans in stock.");
 
         return;
     }
 
 
-    if (productName.toLowerCase() === "oil" &&
-        quantity > oilStock) {
+    if (
+        productName.toLowerCase() === "oil" &&
+        quantity > oilStock
+    ) {
 
-        alert("Not enough Oil in stock");
+        alert("Not enough Oil in stock.");
 
         return;
     }
 
     for (let i = 0; i < products.length; i++) {
-        if (products[i].name.toLowerCase() === productName.toLowerCase() &&
-            quantity > products[i].stock) {
 
-            alert("Not enough " + products[i].name + " in stock");
+        if (
+            products[i].name.toLowerCase() ===
+            productName.toLowerCase()
+        ) {
 
-            return;
+            if (quantity > products[i].stock) {
+
+                alert(
+                    "Not enough " +
+                    products[i].name +
+                    " in stock."
+                );
+
+                return;
+            }
+
         }
+
     }
 
-
-    let total = cost * quantity;
-
+    let total =
+        cost * quantity;
 
     let product = {
 
@@ -105,56 +162,153 @@ function addproduct() {
 
         total: total,
 
-        image: URL.createObjectURL(productImage[0]),
+        image:
+            URL.createObjectURL(productImage[0])
 
     };
 
-
     cart.push(product);
 
-    grandTotal = grandTotal + total;
 
+    grandTotal =
+        grandTotal + total;
 
     showCart();
 
-    document.getElementById("receiptCustomerName").innerText =
-        customerName;
+    updateCurrentQuantity();
 
-    document.getElementById("total").innerText =
-        "Total: ₦" + grandTotal;
+    updatePaymentDetails();
+
+    document.getElementById(
+        "receiptCustomerName"
+    ).innerText = customerName;
 
 
-    document.getElementById("ProductName").value = "";
+    document.getElementById(
+        "ProductName"
+    ).value = "";
 
-    document.getElementById("ProductCost").value = "";
 
-    document.getElementById("ProductQuantity").value = "";
+    document.getElementById(
+        "ProductCost"
+    ).value = "";
 
-    document.getElementById("ProductImage").value = "";
+
+    document.getElementById(
+        "ProductQuantity"
+    ).value = "";
+
+
+    document.getElementById(
+        "ProductImage"
+    ).value = "";
+
+    document.getElementById(
+        "productValue"
+    ).innerText = "₦0";
 
 }
 
+function updateProductValue() {
+
+    let costInput =
+        document.getElementById("ProductCost");
+
+    let quantityInput =
+        document.getElementById("ProductQuantity");
+
+    let valueBox =
+        document.getElementById("productValue");
+
+
+    if (
+        !costInput ||
+        !quantityInput ||
+        !valueBox
+    ) {
+
+        return;
+    }
+
+
+    let cost =
+        Number(costInput.value) || 0;
+
+
+    let quantity =
+        Number(quantityInput.value) || 0;
+
+
+    let value =
+        cost * quantity;
+
+
+    valueBox.innerText =
+        "₦" + value.toLocaleString();
+}
+
+document.addEventListener("input", function (event) {
+
+    if (
+        event.target.id === "ProductCost" ||
+        event.target.id === "ProductQuantity"
+    ) {
+
+        updateProductValue();
+
+    }
+
+
+    if (
+        event.target.id === "amountReceived"
+    ) {
+
+        updatePaymentDetails();
+
+    }
+
+});
+
 function removeproduct(index) {
 
-    let removedProduct = cart[index];
+    let removedProduct =
+        cart[index];
+
+
+    if (!removedProduct) {
+
+        return;
+    }
+
 
     grandTotal =
         grandTotal - removedProduct.total;
 
+
     cart.splice(index, 1);
+
 
     showCart();
 
-    document.getElementById("total").innerText =
-        "Total: ₦" + grandTotal;
+    updateCurrentQuantity();
+
+    updatePaymentDetails();
+
+    if (cart.length === 0) {
+
+        document.getElementById(
+            "receiptCustomerName"
+        ).innerText = "No Customer";
+
+    }
 
 }
-
 
 function showCart() {
 
     let receipt =
         document.getElementById("receipt");
+
 
     receipt.innerHTML = "";
 
@@ -162,51 +316,304 @@ function showCart() {
     for (let i = 0; i < cart.length; i++) {
 
         receipt.innerHTML += `
-    <tr>
 
-        <td>
-            <img src="${cart[i].image}" class="receipt-image">
-        </td>
+            <tr>
 
-        <td>
-            ${cart[i].name}
-        </td>
+                <td>
 
-        <td>
-            ₦${cart[i].total}
-        </td>
+                    <img
+                        src="${cart[i].image}"
+                        class="receipt-image"
+                        alt="${cart[i].name}"
+                    >
 
-        <td>
-            <button class="btn btn-sm btn-outline-danger" onclick="removeproduct(${i})">
-                Remove
-            </button>
-        </td>
+                </td>
 
-    </tr>
-`;
+
+                <td>
+                    ${i + 1}
+                </td>
+
+
+                <td>
+                    ${cart[i].name}
+                </td>
+
+
+                <td>
+                    -
+                </td>
+
+
+                <td>
+                    -
+                </td>
+
+
+                <td>
+                    ${cart[i].quantity}
+                </td>
+
+
+                <td>
+                    ₦${cart[i].cost.toLocaleString()}
+                </td>
+
+
+                <td>
+                    ₦${cart[i].total.toLocaleString()}
+                </td>
+
+
+                <td>
+
+                    <button
+                        type="button"
+                        class="btn btn-sm btn-outline-danger"
+                        onclick="removeproduct(${i})">
+
+                        Remove
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
     }
 
 }
 
+function updateCurrentQuantity() {
+
+    let currentQuantity = 0;
+
+
+    for (let i = 0; i < cart.length; i++) {
+
+        currentQuantity =
+            currentQuantity + cart[i].quantity;
+
+    }
+
+
+    let quantityElement =
+        document.getElementById("currentQty");
+
+
+    if (quantityElement) {
+
+        quantityElement.innerText =
+            currentQuantity;
+
+    }
+
+}
+
+function updatePaymentDetails() {
+
+    let amountReceivedInput =
+        document.getElementById("amountReceived");
+
+
+    let amountReceived = 0;
+
+
+    if (amountReceivedInput) {
+
+        amountReceived =
+            Number(amountReceivedInput.value) || 0;
+
+    }
+
+    let receivedDisplay =
+        document.getElementById("receivedDisplay");
+
+
+    if (receivedDisplay) {
+
+        receivedDisplay.innerText =
+            "₦" +
+            amountReceived.toLocaleString();
+
+    }
+
+    let change =
+        amountReceived - grandTotal;
+
+
+    if (change < 0) {
+
+        change = 0;
+
+    }
+
+
+    let changeElement =
+        document.getElementById("change");
+
+
+    if (changeElement) {
+
+        changeElement.innerText =
+            "₦" +
+            change.toLocaleString();
+
+    }
+
+    let totalElement =
+        document.getElementById("total");
+
+
+    if (totalElement) {
+
+        totalElement.innerText =
+            "Total: ₦" +
+            grandTotal.toLocaleString();
+
+    }
+
+}
+
+function newSale() {
+
+    cart = [];
+
+    grandTotal = 0;
+
+    let customerName =
+        document.getElementById("CustomerName");
+
+    if (customerName) {
+
+        customerName.value = "";
+
+    }
+
+
+    let customerAddress =
+        document.getElementById("CustomerAddress");
+
+    if (customerAddress) {
+
+        customerAddress.value = "";
+
+    }
+
+
+    let customerPhone =
+        document.getElementById("CustomerPhone");
+
+    if (customerPhone) {
+
+        customerPhone.value = "";
+
+    }
+
+    document.getElementById(
+        "ProductName"
+    ).value = "";
+
+
+    document.getElementById(
+        "ProductCost"
+    ).value = "";
+
+
+    document.getElementById(
+        "ProductQuantity"
+    ).value = "";
+
+
+    document.getElementById(
+        "ProductImage"
+    ).value = "";
+
+    let amountReceived =
+        document.getElementById("amountReceived");
+
+
+    if (amountReceived) {
+
+        amountReceived.value = "";
+
+    }
+
+    document.getElementById(
+        "receipt"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+        "receiptCustomerName"
+    ).innerText = "No Customer";
+
+    document.getElementById(
+        "productValue"
+    ).innerText = "₦0";
+
+
+    updateCurrentQuantity();
+
+    updatePaymentDetails();
+
+
+    alert("New sale started.");
+
+}
 
 function checkout() {
 
     if (cart.length === 0) {
 
-        alert("There is nothing to checkout");
+        alert("There is nothing to checkout.");
 
         return;
     }
 
+    let customerName =
+        document.getElementById(
+            "CustomerName"
+        ).value.trim();
+
+
+    if (customerName === "") {
+
+        alert("Please enter the customer name.");
+
+        return;
+    }
+
+    let amountReceived =
+        Number(
+            document.getElementById(
+                "amountReceived"
+            ).value
+        ) || 0;
+
+
+    if (amountReceived < grandTotal) {
+
+        alert(
+            "Amount received is less than the total."
+        );
+
+        return;
+    }
 
     for (let i = 0; i < cart.length; i++) {
 
         let productName =
             cart[i].name.toLowerCase();
 
+
         let quantity =
             cart[i].quantity;
 
+
+        /* Rice */
 
         if (productName === "rice") {
 
@@ -216,6 +623,8 @@ function checkout() {
         }
 
 
+        /* Beans */
+
         if (productName === "beans") {
 
             beansStock =
@@ -224,6 +633,8 @@ function checkout() {
         }
 
 
+        /* Oil */
+
         if (productName === "oil") {
 
             oilStock =
@@ -231,28 +642,46 @@ function checkout() {
 
         }
 
+
+        /* Custom products */
+
         for (let j = 0; j < products.length; j++) {
-            if (products[j].name.toLowerCase() === productName) {
+
+            if (
+                products[j].name.toLowerCase() ===
+                productName
+            ) {
+
                 products[j].stock =
                     products[j].stock - quantity;
+
             }
+
         }
 
     }
 
-
-    document.getElementById("riceStock").innerText =
-        riceStock;
-
-    document.getElementById("beansStock").innerText =
-        beansStock;
-
-    document.getElementById("oilStock").innerText =
-        oilStock;
+    document.getElementById(
+        "riceStock"
+    ).innerText = riceStock;
 
 
-    let customerName =
-        document.getElementById("CustomerName").value;
+    document.getElementById(
+        "beansStock"
+    ).innerText = beansStock;
+
+
+    document.getElementById(
+        "oilStock"
+    ).innerText = oilStock;
+
+    let paymentMethod =
+        document.getElementById(
+            "paymentMethod"
+        ).value;
+
+    let change =
+        amountReceived - grandTotal;
 
 
     let sale = {
@@ -261,16 +690,19 @@ function checkout() {
 
         total: grandTotal,
 
-        date: new Date().toLocaleString()
+        amountReceived: amountReceived,
+
+        change: change,
+
+        paymentMethod: paymentMethod,
+
+        date:
+            new Date().toLocaleString()
 
     };
 
 
     sales.push(sale);
-
-
-    alert("Sale completed");
-
 
     showsales();
 
@@ -280,29 +712,105 @@ function checkout() {
 
     showNewProducts();
 
+    increaseReceiptNumber();
 
     cart = [];
 
     grandTotal = 0;
 
 
-    document.getElementById("receipt").innerHTML = "";
+    document.getElementById(
+        "receipt"
+    ).innerHTML = "";
 
-    document.getElementById("total").innerText =
-        "Total: ₦0";
 
-    document.getElementById("receiptCustomerName").innerText =
-        "No Customer";
+    document.getElementById(
+        "total"
+    ).innerText = "Total: ₦0";
 
-    document.getElementById("CustomerName").value = "";
+
+    document.getElementById(
+        "receiptCustomerName"
+    ).innerText = "No Customer";
+
+
+    document.getElementById(
+        "CustomerName"
+    ).value = "";
+
+
+    document.getElementById(
+        "CustomerAddress"
+    ).value = "";
+
+
+    document.getElementById(
+        "CustomerPhone"
+    ).value = "";
+
+
+    document.getElementById(
+        "amountReceived"
+    ).value = "";
+
+
+    updateCurrentQuantity();
+
+    updatePaymentDetails();
+
+
+    alert(
+        "Sale completed successfully."
+    );
 
 }
 
+function increaseReceiptNumber() {
+
+    let receiptInput =
+        document.getElementById(
+            "receiptNumber"
+        );
+
+
+    if (!receiptInput) {
+
+        return;
+    }
+
+
+    let currentValue =
+        receiptInput.value;
+
+
+    let number =
+        parseInt(
+            currentValue.replace("POS-", "")
+        );
+
+
+    if (isNaN(number)) {
+
+        number = 1;
+
+    }
+
+
+    number++;
+
+
+    receiptInput.value =
+        "POS-" +
+        String(number).padStart(3, "0");
+
+}
 
 function showsales() {
 
     let history =
-        document.getElementById("salesHistory");
+        document.getElementById(
+            "salesHistory"
+        );
 
 
     history.innerHTML = "";
@@ -311,73 +819,117 @@ function showsales() {
     for (let i = 0; i < sales.length; i++) {
 
         history.innerHTML += `
+
             <div class="sale">
 
                 <p>
-                    Customer: ${sales[i].customer}
+                    Customer:
+                    ${sales[i].customer}
                 </p>
 
-                <p>
-                    Total: ₦${sales[i].total}
-                </p>
 
                 <p>
-                    Date: ${sales[i].date}
+                    Total:
+                    ₦${sales[i].total.toLocaleString()}
+                </p>
+
+
+                <p>
+                    Payment:
+                    ${sales[i].paymentMethod}
+                </p>
+
+
+                <p>
+                    Amount Received:
+                    ₦${sales[i].amountReceived.toLocaleString()}
+                </p>
+
+
+                <p>
+                    Change:
+                    ₦${sales[i].change.toLocaleString()}
+                </p>
+
+
+                <p>
+                    Date:
+                    ${sales[i].date}
                 </p>
 
             </div>
+
         `;
 
     }
 
 }
 
-
 function restockRice() {
 
-    riceStock = riceStock + 10;
+    riceStock =
+        riceStock + 10;
 
-    document.getElementById("riceStock").innerText =
-        riceStock;
 
-    alert("Rice has been restocked");
+    document.getElementById(
+        "riceStock"
+    ).innerText = riceStock;
+
+
+    alert(
+        "Rice has been restocked."
+    );
+
 
     updateDashboard();
 
 }
-
 
 function restockBeans() {
 
-    beansStock = beansStock + 10;
+    beansStock =
+        beansStock + 10;
 
-    document.getElementById("beansStock").innerText =
-        beansStock;
 
-    alert("Beans have been restocked");
+    document.getElementById(
+        "beansStock"
+    ).innerText = beansStock;
+
+
+    alert(
+        "Beans have been restocked."
+    );
+
 
     updateDashboard();
 
 }
-
 
 function restockOil() {
 
-    oilStock = oilStock + 10;
+    oilStock =
+        oilStock + 10;
 
-    document.getElementById("oilStock").innerText =
-        oilStock;
 
-    alert("Oil has been restocked");
+    document.getElementById(
+        "oilStock"
+    ).innerText = oilStock;
+
+
+    alert(
+        "Oil has been restocked."
+    );
+
 
     updateDashboard();
 
 }
 
-
 function updateDashboard() {
 
-    document.getElementById("totalSales").innerText =
+    document.getElementById(
+        "totalSales"
+    ).innerText =
         sales.length;
 
 
@@ -392,8 +944,10 @@ function updateDashboard() {
     }
 
 
-    document.getElementById("moneyMade").innerText =
-        "₦" + money;
+    document.getElementById(
+        "moneyMade"
+    ).innerText =
+        "₦" + money.toLocaleString();
 
 
     let totalStock =
@@ -401,21 +955,28 @@ function updateDashboard() {
         beansStock +
         oilStock;
 
+
     for (let i = 0; i < products.length; i++) {
-        totalStock = totalStock + products[i].stock;
+
+        totalStock =
+            totalStock + products[i].stock;
+
     }
 
 
-    document.getElementById("productsInStock").innerText =
+    document.getElementById(
+        "productsInStock"
+    ).innerText =
         totalStock;
 
 }
 
-
 function showReport() {
 
     let report =
-        document.getElementById("salesReport");
+        document.getElementById(
+            "salesReport"
+        );
 
 
     report.innerHTML = "";
@@ -424,25 +985,39 @@ function showReport() {
     for (let i = 0; i < sales.length; i++) {
 
         report.innerHTML += `
+
             <div class="report">
 
                 <p>
                     Sale ${i + 1}
                 </p>
 
-                <p>
-                    Customer: ${sales[i].customer}
-                </p>
 
                 <p>
-                    Amount: ₦${sales[i].total}
+                    Customer:
+                    ${sales[i].customer}
                 </p>
 
+
                 <p>
-                    Date: ${sales[i].date}
+                    Amount:
+                    ₦${sales[i].total.toLocaleString()}
+                </p>
+
+
+                <p>
+                    Payment:
+                    ${sales[i].paymentMethod}
+                </p>
+
+
+                <p>
+                    Date:
+                    ${sales[i].date}
                 </p>
 
             </div>
+
         `;
 
     }
@@ -451,79 +1026,191 @@ function showReport() {
 
 function addNewProduct() {
 
-    let productName = prompt("Enter product name:");
-    let productCost = prompt("Enter product cost:");
-    let productStock = prompt("Enter product stock:");
+    let productName =
+        prompt("Enter product name:");
+
+
+    let productCost =
+        prompt("Enter product cost:");
+
+
+    let productStock =
+        prompt("Enter product stock:");
+
 
     if (
         productName === null ||
         productCost === null ||
         productStock === null
     ) {
+
         return;
     }
+
+
+    productName =
+        productName.trim();
+
+
+    productCost =
+        productCost.trim();
+
+
+    productStock =
+        productStock.trim();
+
 
     if (
         productName === "" ||
         productCost === "" ||
         productStock === ""
     ) {
-        alert("Please fill all the fields");
+
+        alert(
+            "Please fill all the fields."
+        );
+
         return;
     }
 
+
+    let cost =
+        Number(productCost);
+
+
+    let stock =
+        Number(productStock);
+
+
+    if (
+        isNaN(cost) ||
+        isNaN(stock) ||
+        cost <= 0 ||
+        stock < 0
+    ) {
+
+        alert(
+            "Please enter valid numbers."
+        );
+
+        return;
+    }
+
+
     let product = {
+
         name: productName,
-        cost: Number(productCost),
-        stock: Number(productStock)
+
+        cost: cost,
+
+        stock: stock
+
     };
+
 
     products.push(product);
 
-    showNewProducts();
-
-    alert(productName + " has been added");
-}
-
-function showNewProducts() {
-
-    let productArea = document.querySelector("#newProductsArea");
-
-    productArea.innerHTML = "";
-
-    for (let i = 0; i < products.length; i++) {
-
-        let product = document.createElement("div");
-
-        product.className = "product";
-
-        product.innerHTML = `
-            <h3>${products[i].name}</h3>
-
-            <p>Cost: ₦${products[i].cost}</p>
-
-            <p>
-                Stock:
-                <span>${products[i].stock}</span>
-            </p>
-
-            <button class="btn btn-sm btn-outline-dark" onclick="restockNewProduct(${i})">
-                Restock
-            </button>
-        `;
-
-        productArea.appendChild(product);
-    }
-}
-
-function restockNewProduct(index) {
-
-    products[index].stock =
-        products[index].stock + 10;
 
     showNewProducts();
 
     updateDashboard();
 
-    alert(products[index].name + " has been restocked");
+
+    alert(
+        productName +
+        " has been added."
+    );
+
+}
+
+function showNewProducts() {
+
+    let productArea =
+        document.querySelector(
+            "#newProductsArea"
+        );
+
+
+    productArea.innerHTML = "";
+
+
+    for (
+        let i = 0;
+        i < products.length;
+        i++
+    ) {
+
+        let product =
+            document.createElement(
+                "div"
+            );
+
+
+        product.className =
+            "product";
+
+
+        product.innerHTML = `
+
+            <h3>
+                ${products[i].name}
+            </h3>
+
+
+            <p>
+                Cost:
+                ₦${products[i].cost.toLocaleString()}
+            </p>
+
+
+            <p>
+                Stock:
+                <span>
+                    ${products[i].stock}
+                </span>
+            </p>
+
+
+            <button
+                type="button"
+                class="btn btn-sm btn-outline-dark"
+                onclick="restockNewProduct(${i})">
+
+                Restock
+
+            </button>
+
+        `;
+
+
+        productArea.appendChild(
+            product
+        );
+
+    }
+
+}
+
+function restockNewProduct(index) {
+
+    if (!products[index]) {
+
+        return;
+    }
+
+
+    products[index].stock =
+        products[index].stock + 10;
+
+
+    showNewProducts();
+
+    updateDashboard();
+
+
+    alert(
+        products[index].name +
+        " has been restocked."
+    );
+
 }
