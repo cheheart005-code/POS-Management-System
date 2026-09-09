@@ -15,25 +15,25 @@ body {
 }
 
 .pos-header {
-    background-color: #343a40;
+    background-color: #4b5156;
     color: white;
 
-    padding: 10px 15px;
+    padding: 8px 15px;
 
-    border-bottom: 3px solid #222;
+    border-bottom: 2px solid #303438;
 }
 
 .pos-header h1 {
     margin: 0;
 
-    font-size: 22px;
+    font-size: 21px;
     font-weight: normal;
 
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .user-status {
-    font-size: 13px;
+    font-size: 12px;
 }
 
 
@@ -60,51 +60,50 @@ body {
 
 
 .pos-panel {
-    background-color: white;
+    background-color: #ffffff;
 
-    border: 1px solid #aaa;
+    border: 1px solid #999;
 
     min-height: 100%;
 
     box-shadow: none;
 }
 
-
 .panel-title {
-    background-color: #e1e1e1;
+    background-color: #d9dcde;
 
-    border-bottom: 1px solid #aaa;
+    border-bottom: 1px solid #999;
 
-    padding: 7px 10px;
+    padding: 6px 9px;
 
     font-weight: bold;
 
-    font-size: 15px;
+    font-size: 14px;
 
     color: #222;
 }
 
 
 .pos-panel label {
-    display: block;
+    font-size: 12px;
 
-    margin-bottom: 4px;
+    margin-bottom: 3px;
 
     font-weight: bold;
-
-    font-size: 13px;
 }
 
 
 .pos-panel .form-control,
 .pos-panel .form-select {
-    border: 1px solid #999;
+    border: 1px solid #888;
 
-    border-radius: 2px;
+    border-radius: 1px;
 
-    font-size: 14px;
+    font-size: 13px;
 
-    min-height: 36px;
+    min-height: 32px;
+
+    padding: 5px 8px;
 }
 
 .pos-panel .form-control:focus,
@@ -120,17 +119,21 @@ body {
 }
 
 .current-quantity {
-    padding: 15px;
+    padding: 12px;
 
-    font-size: 18px;
+    font-size: 17px;
 
     font-weight: bold;
 
-    border-bottom: 1px solid #ddd;
+    background-color: #f4f4f4;
+
+    border-bottom: 1px solid #ccc;
 }
 
 .current-quantity span {
-    font-size: 22px;
+    font-size: 20px;
+
+    margin: 0 3px;
 }
 
 .quantity-options {
@@ -154,27 +157,31 @@ body {
 
 
 .table {
-    margin: 0;
-
-    font-size: 13px;
+    font-size: 12px;
 
     background-color: white;
+
+    border-color: #999;
 }
 
 .table thead th {
-    background-color: #e5e5e5;
+    background-color: #d9dcde;
+
+    color: #222;
 
     border-color: #999;
+
+    padding: 6px;
 
     font-weight: bold;
 
     white-space: nowrap;
-
-    vertical-align: middle;
 }
 
 .table tbody td {
-    border-color: #bbb;
+    padding: 5px;
+
+    border-color: #aaa;
 
     vertical-align: middle;
 }
@@ -199,7 +206,7 @@ body {
 
 
 .totals-panel {
-    min-height: 100%;
+    background-color: #f7f7f7;
 }
 
 .total-row {
@@ -207,33 +214,32 @@ body {
 
     justify-content: space-between;
 
-    align-items: center;
+    padding: 6px 0;
 
-    padding: 7px 0;
+    border-bottom: 1px solid #ddd;
 
-    border-bottom: 1px solid #eee;
+    font-size: 13px;
 }
 
 .total-row span:last-child {
     font-weight: bold;
 }
 
+
 .net-total {
     display: flex;
 
     justify-content: space-between;
 
-    align-items: center;
-
     padding-top: 10px;
 
-    font-size: 18px;
+    font-size: 17px;
 
     font-weight: bold;
 }
 
 .net-total span:last-child {
-    font-size: 20px;
+    font-size: 19px;
 }
 
 
@@ -469,6 +475,84 @@ footer {
         width: 100%;
 
         margin: 4px 0;
+    }
+
+}
+
+@media print {
+
+    body {
+        background-color: white;
+        font-family: Arial, sans-serif;
+        color: black;
+    }
+
+    .pos-header,
+    .pos-top-info,
+    .quantity-panel,
+    .action-area,
+    footer,
+    .col-lg-4:has(.products),
+    .col-lg-4:has(.dashboard),
+    .col-lg-4:has(#salesHistory) {
+        display: none !important;
+    }
+
+    main {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .pos-panel {
+        border: none;
+        box-shadow: none;
+    }
+
+
+    .panel-title {
+        background-color: white;
+        border-bottom: 1px solid black;
+    }
+
+    .pos-panel:has(#ProductName) {
+        display: none !important;
+    }
+
+    .pos-panel:has(#amountReceived) {
+        display: block !important;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+
+    th,
+    td {
+        border: 1px solid black !important;
+        padding: 5px !important;
+    }
+
+    th:last-child,
+    td:last-child {
+        display: none;
+    }
+
+    .receipt-image {
+        width: 40px;
+        height: 40px;
+    }
+
+    #receiptCustomerName {
+        font-weight: bold;
+    }
+
+    .net-total {
+        border-top: 2px solid black;
+        font-size: 18px;
     }
 
 }

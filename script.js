@@ -1214,3 +1214,17 @@ function restockNewProduct(index) {
     );
 
 }
+
+function printReceipt() {
+
+    if (cart.length === 0) {
+
+        alert("There is nothing to print.");
+
+        return;
+    }
+
+
+    window.print();
+
+}
