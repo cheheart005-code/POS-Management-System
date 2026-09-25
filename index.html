@@ -12,6 +12,101 @@
 
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        #printArea {
+            display: none;
+        }
+
+        @media print {
+
+            body * {
+                visibility: hidden;
+            }
+
+            #printArea,
+            #printArea * {
+                visibility: visible;
+            }
+
+            #printArea {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                padding: 20px;
+                font-family: Arial, sans-serif;
+                color: #000;
+            }
+
+            .print-shop-name {
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .print-shop-sub {
+                text-align: center;
+                margin-bottom: 12px;
+                font-size: 13px;
+            }
+
+            .print-meta {
+                margin-bottom: 10px;
+                font-size: 13px;
+            }
+
+            .print-meta div {
+                margin-bottom: 2px;
+            }
+
+            .print-meta span:first-child {
+                font-weight: bold;
+            }
+
+            .print-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 10px;
+                font-size: 13px;
+            }
+
+            .print-table th,
+            .print-table td {
+                border: 1px solid #000;
+                padding: 4px 6px;
+                text-align: left;
+            }
+
+            .print-totals {
+                font-size: 13px;
+            }
+
+            .print-total-row {
+                display: flex;
+                justify-content: space-between;
+                padding: 2px 0;
+            }
+
+            .print-net-total {
+                display: flex;
+                justify-content: space-between;
+                font-size: 16px;
+                font-weight: bold;
+                border-top: 1px solid #000;
+                margin-top: 4px;
+                padding-top: 4px;
+            }
+
+            .print-footer {
+                text-align: center;
+                margin-top: 16px;
+                font-size: 13px;
+            }
+
+        }
+    </style>
 </head>
 
 <body>
@@ -592,6 +687,49 @@
                 PRINT
 
             </button>
+
+        </div>
+
+
+        <div id="printArea">
+
+            <div class="print-shop-name">POS Management System</div>
+            <div class="print-shop-sub">Sales Receipt</div>
+
+            <div class="print-meta">
+                <div><span>Receipt No:</span> <span id="printReceiptNo"></span></div>
+                <div><span>Date:</span> <span id="printDate"></span></div>
+            </div>
+
+            <div class="print-meta">
+                <div><span>Customer:</span> <span id="printCustomerName"></span></div>
+                <div><span>Address:</span> <span id="printCustomerAddress"></span></div>
+                <div><span>Phone:</span> <span id="printCustomerPhone"></span></div>
+            </div>
+
+            <table class="print-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody id="printItems"></tbody>
+            </table>
+
+            <div class="print-totals">
+                <div class="print-total-row"><span>Tax Total</span><span id="printTax">₦0</span></div>
+                <div class="print-total-row"><span>Discount</span><span id="printDiscount">₦0</span></div>
+                <div class="print-total-row"><span>Services/Add</span><span id="printServices">₦0</span></div>
+                <div class="print-net-total"><span>Net Total</span><span id="printNetTotal">₦0</span></div>
+                <div class="print-total-row"><span>Payment Method</span><span id="printPaymentMethod">-</span></div>
+                <div class="print-total-row"><span>Amount Received</span><span id="printReceived">₦0</span></div>
+                <div class="print-total-row"><span>Change</span><span id="printChange">₦0</span></div>
+            </div>
+
+            <div class="print-footer">Thank you for shopping with us!</div>
 
         </div>
 

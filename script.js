@@ -1258,8 +1258,71 @@ function printReceipt() {
         return;
     }
 
+    fillPrintArea();
 
     window.print();
+
+}
+
+function fillPrintArea() {
+
+    document.getElementById("printReceiptNo").innerText =
+        document.getElementById("receiptNumber").value || "-";
+
+    document.getElementById("printDate").innerText =
+        document.getElementById("saleDate").value || "-";
+
+    document.getElementById("printCustomerName").innerText =
+        document.getElementById("CustomerName").value || "-";
+
+    document.getElementById("printCustomerAddress").innerText =
+        document.getElementById("CustomerAddress").value || "-";
+
+    document.getElementById("printCustomerPhone").innerText =
+        document.getElementById("CustomerPhone").value || "-";
+
+
+    let printItems =
+        document.getElementById("printItems");
+
+    printItems.innerHTML = "";
+
+    for (let i = 0; i < cart.length; i++) {
+
+        printItems.innerHTML += `
+
+            <tr>
+                <td>${cart[i].name}</td>
+                <td>${cart[i].quantity}</td>
+                <td>₦${cart[i].cost.toLocaleString()}</td>
+                <td>₦${cart[i].total.toLocaleString()}</td>
+            </tr>
+
+        `;
+
+    }
+
+
+    document.getElementById("printTax").innerText =
+        document.getElementById("taxTotal").innerText.trim();
+
+    document.getElementById("printDiscount").innerText =
+        document.getElementById("discount").innerText.trim();
+
+    document.getElementById("printServices").innerText =
+        document.getElementById("servicesAdd").innerText.trim();
+
+    document.getElementById("printNetTotal").innerText =
+        "₦" + grandTotal.toLocaleString();
+
+    document.getElementById("printPaymentMethod").innerText =
+        document.getElementById("paymentMethod").value || "-";
+
+    document.getElementById("printReceived").innerText =
+        document.getElementById("receivedDisplay").innerText.trim();
+
+    document.getElementById("printChange").innerText =
+        document.getElementById("change").innerText.trim();
 
 }
 
